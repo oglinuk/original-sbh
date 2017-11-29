@@ -26,6 +26,8 @@ sudo apt install git -y
 <b>To clone the program</b> - git clone https://github.com/OGLinuk/sbh.git
 
 Navigate to where you cloned SaltBaeHash in cmd or terminal
+* If youre on windows the command to start sbh is python run.py
+* If youre on Linux the command to start sbh is python3 run.py
 
 ## Benefits
 * Free
