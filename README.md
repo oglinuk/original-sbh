@@ -23,7 +23,10 @@ or
 sudo apt install git -y
 ```
 
-<b>To clone the program</b> - git clone https://github.com/OGLinuk/sbh.git
+<b>To clone the program</b>
+```
+git clone https://github.com/OGLinuk/sbh.git
+```
 
 Navigate to where you cloned SaltBaeHash in cmd or terminal
 * If youre on windows the command to start sbh is python run.py
@@ -40,3 +43,4 @@ Navigate to where you cloned SaltBaeHash in cmd or terminal
 of the rotations which could be stored as say a private key. This would make numbers 2 < digits easier to use
 * Add more cipher methods as options
 * Add the option to generate sha512 hashs rather than sha256
+* Add sbh to PGP encryption
