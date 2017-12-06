@@ -1,6 +1,6 @@
 # SaltBaeHash
 
-## Security through obscurity - Learn more about [ciphers](https://en.wikipedia.org/wiki/Caesar_cipher)
+## Security through obscurity - Learn more about [ciphers](https://en.wikipedia.org/wiki/Cipher)
 
 ### Next level of password security
 #### Plain text ->
@@ -8,6 +8,25 @@
 #### n(0 < n < infinity) rotation(s) ->
 #### n(0 < n < infinity) amount of potential hashs ->
 #### store in a password manager if needed
+
+# How to use
+
+1. ```python run.py``` (windows) or ```python3 run.py``` (linux)
+2. enter a plain text - it is important to note that capitalization produces a different hash
+3. enter a number of [caesar ciphers](https://en.wikipedia.org/wiki/Caesar_cipher) that you want to apply
+4. enter a number for the rotation applied to each character of the plain text
+5. store the hash in a [password manager](https://www.lastpass.com/) or remember the cipher number and rotation pattern
+
+## Example
+
+Plain text: steam
+N of Ciphers: 5
+Rotation 1: 2
+Rotation 2: 3
+Rotation 3: 5
+Rotation 4: 7
+Rotation 5: 11
+SaltBaeHash: 311dac1512a811e898a950bf4a478c383b1227775d948dc33130659d785f7a99
 
 # Installation
 
@@ -48,4 +67,4 @@ of the rotations which could be stored as say a private key. This would make num
 * Add more cipher methods as options
 * Add the option to generate sha512 hashs rather than sha256
 * Add sbh layer to PGP encryption(keybase)
-* Executable 
+* Executable
