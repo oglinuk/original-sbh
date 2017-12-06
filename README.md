@@ -19,14 +19,14 @@
 
 ## Example
 
-Plain text: steam
-N of Ciphers: 5
-Rotation 1: 2
-Rotation 2: 3
-Rotation 3: 5
-Rotation 4: 7
-Rotation 5: 11
-SaltBaeHash: 311dac1512a811e898a950bf4a478c383b1227775d948dc33130659d785f7a99
+* Plain text: steam
+* N of Ciphers: 5
+* Rotation 1: 2
+* Rotation 2: 3
+* Rotation 3: 5
+* Rotation 4: 7
+* Rotation 5: 11
+* SaltBaeHash: 311dac1512a811e898a950bf4a478c383b1227775d948dc33130659d785f7a99
 
 # Installation
 
