@@ -1,6 +1,6 @@
 # SaltBaeHash
 
-## Security through obscurity
+## Security through obscurity - Learn more about [ciphers](https://en.wikipedia.org/wiki/Caesar_cipher)
 
 ### Next level of password security
 #### Plain text ->
@@ -15,6 +15,8 @@ Install [Windows Python 3.6.3](https://www.python.org/ftp/python/3.6.3/Python-3.
 
 Linux has both Python3 and Python2 installed by default, so you might just need to update to the latest version of Python3.
 
+<hr>
+
 Install [Windows Git](https://github.com/git-for-windows/git/releases/download/v2.15.0.windows.1/Git-2.15.0-64-bit.exe)
 
 or
@@ -22,6 +24,8 @@ or
 ```
 sudo apt install git -y
 ```
+
+<hr>
 
 <b>To clone the program</b>
 ```
@@ -40,7 +44,8 @@ Navigate to where you cloned SaltBaeHash in cmd or terminal
 ## Milestones
 
 * Add the ability to apply an automation to the assignment
-of the rotations which could be stored as say a private key. This would make numbers 2 < digits easier to use
+of the rotations which could be stored as say a private key. This would make number of ciphers 2 < digits easier to use
 * Add more cipher methods as options
 * Add the option to generate sha512 hashs rather than sha256
-* Add sbh to PGP encryption
+* Add sbh layer to PGP encryption(keybase)
+* Executable 
