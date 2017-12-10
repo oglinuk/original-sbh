@@ -31,8 +31,14 @@
 
 # Example
 
+## W/ CLI
+* ```python run.py 5 steam 2 3 5 7 11``` (windows) | ```python3 run.py 5 steam 2 3 5 7 11``` (linux)
+
+<hr>
+
+## W/o CLI
+* Number of Ciphers: 5
 * Plain text: steam
-* N of Ciphers: 5
 * Rotation 1: 2
 * Rotation 2: 3
 * Rotation 3: 5
