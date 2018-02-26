@@ -87,7 +87,7 @@ class SaltBaeHash(object):
         #os.system('cls' if os.name == 'nt' else 'clear')
         print("\033[H\033[2J") # another way to clear the terminal
         print('-----------------Salt Bae Hash-----------------')
-        print('Plain Text -> Cipher(s) -> Hash(s)')
+        print('Plain Text -> Cipher(s) -> Hash(s)')            
         choice = int(input('\n1) Generate\n2) Reproduce\n\n'))
         if choice == 1:
             self.generate()
