@@ -36,39 +36,54 @@ class SaltBaeHash(object):
         return logger
 
     # Generate a SBH string
-    def generate(self):
-        iters = int(input('\nNum of ciphers: '))
-        plainText = input('\nPlain Text: ')
+    def generate(self, *args, **kwargs):
+        print(args)
+        input()
+        if args == ():
+            iters = int(input('\nNum of ciphers: '))
+            plainText = input('\nPlain Text: ')
+        else:
+            iters = int(args[0][0])
+            plainText = args[0][1]
         start_time = time.time()
         rot = int(rng.randint(1, sys.maxsize))
         self.logger.info('Rotation 0: {}'.format(rot))
         hashedText = self.ccFunc(rot, plainText)
         for i in range(1, iters):
-            rot = int(rng.randint(1, (sys.maxsize)))
+            rot = int(rng.randint(1, sys.maxsize))
             self.logger.info('Rotation {}: {}'.format(i, rot))
             hashedText = self.ccFunc(rot, hashedText)
         print('\nDuration: {}'.format(time.time() - start_time))
-        with open('raw_sbh_logs.txt', 'r') as fIN, open('{}_rotations.txt'.format(input('\nContext: ')), 'ab+') as fOUT:
+        with open('raw_sbh_logs.txt', 'r+') as fIN, open('{}_rotations.txt'.format(input('\nContext: ')), 'ab+') as fOUT:
             for line in fIN.readlines():
                 fOUT.write(bytes(line.split(':')[-1].lstrip(), 'UTF-8'))
-        os.remove('raw_sbh_logs.txt')
         print('\nSBH: {}'.format(hashedText))
+        self.args = ([],)
         self.doAgain()
 
     # Reproduce a SBH string
-    def reproduce(self):
-        rots = self.load_rotations()
-        plainText = input('\nPlain Text: ')
+    def reproduce(self, *args, **kwargs):
+        if args == ():
+            rots = self.load_rotations()
+            plainText = input('\nPlain Text: ')
+        else:
+            rots = self.load_rotations(args[0][0])
+            plainText = args[0][1]
         start_time = time.time()
         for rot in rots:
             plainText = self.ccFunc(rot, plainText)
         print('\nSBH: {}\n\nDuration: {}'.format(plainText, time.time() - start_time))
+        self.args = ([],)
         self.doAgain()
 
     # Util func for reproduce()
-    def load_rotations(self):
-        with open('{}'.format(input('\nRotation File: '))) as f:
-            return [int(rot) for rot in f.readlines()]
+    def load_rotations(self, *args, **kwargs):
+        if args == None:
+            with open('{}'.format(input('\nRotation File: ')), 'r') as f:
+                return [int(rot) for rot in f.readlines()]
+        else:
+            with open('{}'.format(args[0]), 'r') as f:
+                return [int(rot) for rot in f.readlines()]
 
     # Caesar Cipher
     def ccFunc(self, prRotation, prPlainText):
@@ -87,23 +102,37 @@ class SaltBaeHash(object):
         #os.system('cls' if os.name == 'nt' else 'clear')
         print("\033[H\033[2J") # another way to clear the terminal
         print('-----------------Salt Bae Hash-----------------')
-        print('Plain Text -> Cipher(s) -> Hash(s)')            
-        choice = int(input('\n1) Generate\n2) Reproduce\n\n'))
-        if choice == 1:
-            self.generate()
-        elif choice == 2:
-            self.reproduce()
+        print('Plain Text -> Cipher(s) -> Hash(s)')
+        if self.args != ([],):
+            if '-g' in self.args[0]:
+                self.generate(self.args[0][1:])
+            elif '-r' in self.args[0]:
+                self.reproduce(self.args[0][1:])
         else:
-            print('No no no ...')
-            time.sleep(3)
-            self.menu()
+            choice = int(input('\n1) Generate\n2) Reproduce\n\n'))
+            if choice == 1:
+                self.generate()
+            elif choice == 2:
+                self.reproduce()
+            else:
+                print('No no no ...')
+                time.sleep(3)
+                self.menu()
 
     # Repeat program
     def doAgain(self):
         choice = input('\nSBH another one? [Y/n]: ')
-        if choice.lower() == 'y':
-            self.menu()
-        elif choice.lower() == 'n':
-            sys.exit(0)
-        else:
-            self.doAgain()
+        try:
+            if choice.lower() == 'y':
+                self.menu()
+            elif choice.lower() == 'n':
+                sys.exit(0)
+            else:
+                self.doAgain()
+        except Exception as e:
+            print(str(e))
+        finally:
+            try:
+                os.remove('raw_sbh_logs.txt')
+            except Exception as e:
+                print(str(e))
