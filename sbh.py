@@ -37,8 +37,6 @@ class SaltBaeHash(object):
 
     # Generate a SBH string
     def generate(self, *args, **kwargs):
-        print(args)
-        input()
         if args == ():
             iters = int(input('\nNum of ciphers: '))
             plainText = input('\nPlain Text: ')
@@ -54,7 +52,7 @@ class SaltBaeHash(object):
             self.logger.info('Rotation {}: {}'.format(i, rot))
             hashedText = self.ccFunc(rot, hashedText)
         print('\nDuration: {}'.format(time.time() - start_time))
-        with open('raw_sbh_logs.txt', 'r+') as fIN, open('{}_rotations.txt'.format(input('\nContext: ')), 'ab+') as fOUT:
+        with open('raw_sbh_logs.txt', 'r') as fIN, open('{}_rotations.txt'.format(input('\nContext: ')), 'ab+') as fOUT:
             for line in fIN.readlines():
                 fOUT.write(bytes(line.split(':')[-1].lstrip(), 'UTF-8'))
         print('\nSBH: {}'.format(hashedText))
@@ -78,7 +76,7 @@ class SaltBaeHash(object):
 
     # Util func for reproduce()
     def load_rotations(self, *args, **kwargs):
-        if args == None:
+        if args == ():
             with open('{}'.format(input('\nRotation File: ')), 'r') as f:
                 return [int(rot) for rot in f.readlines()]
         else:
@@ -103,6 +101,8 @@ class SaltBaeHash(object):
         print("\033[H\033[2J") # another way to clear the terminal
         print('-----------------Salt Bae Hash-----------------')
         print('Plain Text -> Cipher(s) -> Hash(s)')
+        #if os.path.exists('raw_sbh_logs.txt'):
+        #    os.remove('raw_sbh_logs.txt')
         if self.args != ([],):
             if '-g' in self.args[0]:
                 self.generate(self.args[0][1:])
