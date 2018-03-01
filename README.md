@@ -10,7 +10,6 @@
 #### n(0 < n < infinity) generated rotation(s) ->
 #### n(0 < n < infinity) amount of potential hashs ->
 #### stores rotations in a .txt file with (context)\_rotation.txt as the name
-#### [WARNING] THE TXT FILE IS NOT SECURE -> PLEASE ENCRYPT IT WITH A PRIVATE KEY [WARNING]
 
 # How to use
 
@@ -20,8 +19,8 @@
 
 ## W/o CLI
 1. ```python run.py``` (windows) || ```python3 run.py``` (linux)
-2. input a number of [caesar ciphers](https://en.wikipedia.org/wiki/Caesar_cipher) that you want to apply
-3. input a plain text - it is important to note that capitalization produces a different hash
+2. Input a number of [caesar ciphers](https://en.wikipedia.org/wiki/Caesar_cipher) that you want to apply
+3. Input a plain text - it is important to note that capitalization produces a different hash
 
 # Example
 
@@ -36,7 +35,7 @@
 * ```SBH: 9db0348486f86559c3e9c5b9456e46d7bc05ce2727b75903b411050086a5464b```
 
 ## W/ CLI (reproduce)
-* ```python run.py -r steam_rotations.txt steam``` (windows) || ```python3 -r steam_rotations.txt steam``` (linux)
+* ```python run.py -r steam_rotations.txt steam``` (windows) || ```python3 run.py -r steam_rotations.txt steam``` (linux)
 
 ## W/o CLI (reproduce)
 * ```Rotation File: steam_rotations.txt```
@@ -56,8 +55,6 @@ Install [Git](https://github.com/git-for-windows/git/releases/download/v2.15.0.w
 * <b><i>Very</i></b> secure
 
 # Milestones
-* Add the ability to apply an automation to the assignment
-of the rotations which could be stored as say a private key. This would make number of ciphers 2 < digits easier to use
 * Add more cipher methods as options
 * Add the option to generate sha512 hashs rather than sha256
 * Make into executable
