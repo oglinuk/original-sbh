@@ -9,7 +9,7 @@
 #### n(0 < n < infinity) cipher(s) applied ->
 #### n(0 < n < infinity) generated rotation(s) ->
 #### n(0 < n < infinity) amount of potential hashs ->
-#### stores rotations in a .txt file with (context)\_rotation.txt as the name
+#### -> use encryption to encrypt the SBH rot file(s) w/ AES 256
 
 # How to use
 
@@ -40,6 +40,13 @@
 ## W/o CLI (reproduce)
 * ```Rotation File: steam_rotations.txt```
 * ```Plain Text: steam```
+
+## W/ CLI (Encrypt)
+* ```python run.py -e steam_rotations.txt steam_rotations.enc``` (windows) || ```python3 run.py -e steam_rotations.txt steam_rotations.enc``` (linux)
+
+## W/o CLI (Encrypt)
+* ```In File: steam_rotations.text```
+* ```Out File: 
 
 # Installation
 
