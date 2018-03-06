@@ -52,59 +52,52 @@ class SaltBaeHash(object):
             self.logger.info('Rotation {}: {}'.format(i, rot))
             hashedText = self.ccFunc(rot, hashedText)
         print('\nDuration: {}'.format(time.time() - start_time))
-        with open('raw_sbh_logs.txt', 'r') as fIN, open('{}_rotations.txt'.format(input('\nContext: ')), 'ab+') as fOUT:
-            for line in fIN.readlines():
-                fOUT.write(bytes(line.split(':')[-1].lstrip(), 'UTF-8'))
-        os.remove('raw_sbh_logs.txt')
+        context = input('\nContext: ')
+        try:
+            with open('raw_sbh_logs.txt', 'r+') as fIN, open('{}_rots.txt'.format(context), 'ab+') as fOUT:
+                for line in fIN.readlines():
+                    fOUT.write(bytes(line.split(':')[-1].lstrip(), 'UTF-8'))
+        except Exception as e:
+            print(str(e))
+        finally:
+            self.encryption('{}_rots.txt'.format(context))
+            os.remove('raw_sbh_logs.txt')
         print('\nSBH: {}'.format(hashedText))
         self.doAgain()
 
     # Reproduce a SBH string
     def reproduce(self, args):
+        rot_file = None
         if args == None:
-            rots = self.load_rotations(None)
+            rot_file = input('File name: ')
+            rots = self.load_rotations(rot_file)
             plainText = input('\nPlain Text: ')
         else:
-            rots = self.load_rotations(args[0])
+            rot_file = args[0]
+            rots = self.load_rotations(rot_file)
             plainText = args[1]
         start_time = time.time()
         for rot in rots:
             plainText = self.ccFunc(rot, plainText)
+        os.remove('{}.txt'.format(rot_file.split('.')[0]))
         print('\nSBH: {}\n\nDuration: {}'.format(plainText, time.time() - start_time))
         self.doAgain()
 
     # Util func for reproduce()
     def load_rotations(self, args):
-        if args == None:
-            in_file = input('\nRotation File: ')
-            if in_file.endswith('.enc'):
-                self.encryption('-d', in_file, '{}.txt'.format(in_file.split('.')[0]))
-                in_file = '{}.txt'.format(in_file.split('.')[0])
-            with open('{}'.format(in_file), 'r') as f:
-                return [int(rot) for rot in f.readlines()]
-        else:
-            with open('{}'.format(args), 'r') as f:
-                return [int(rot) for rot in f.readlines()]
+        if '.enc' in args:
+            self.encryption(args)
+            args = '{}.txt'.format(args.split('.')[0])
+        with open('{}'.format(args), 'r+') as f:
+            return [int(rot) for rot in f.readlines()]
 
-    # Encrypton and decryption of SBH rotation files
+    # Encrypton and decryption w/ AES 256 of SBH rotation files
     def encryption(self, args):
-        if args == None:
-            choice = input('\n(E)ncrypt or (D)ecrypt\n\n')
-            if choice.lower() == 'e':
-                # Reason for the difference is because we ONLY want to remove the .txt file version of SBH rot files
-                in_file = input('\nIn File: ')
-                # https://askubuntu.com/questions/60712/how-do-i-quickly-encrypt-a-file-with-aes
-                os.system('sudo openssl aes-256-cbc -in {} -out {}'.format(in_file, input('\nOut File: ')))
-                os.remove(in_file)
-            elif choice.lower() == 'd':
-                os.system('sudo openssl aes-256-cbc -d -in {} -out {}'.format(input('\nIn File: '), input('\nOut File: ')))
+        if '.enc' not in args:
+            os.system('sudo openssl aes-256-cbc -in {} -out {}'.format(args, '{}.enc'.format(args.split('.')[0])))
+            os.remove(args)
         else:
-            if args.encrypt:
-                os.system('sudo openssl aes-256-cbc -in {} -out {}'.format(args.encrypt[0], args.encrypt[1]))
-                os.remove(args.encrypt[0])
-            elif args.decrypt:
-                os.system('sudo openssl aes-256-cbc -d -in {} -out {}'.format(args.decrypt[0], args.decrypt[1]))
-        self.doAgain()
+            os.system('sudo openssl aes-256-cbc -d -in {} -out {}'.format(args, '{}.txt'.format(args.split('.')[0])))
 
     # Caesar cipher
     def ccFunc(self, prRotation, prPlainText):
@@ -120,11 +113,24 @@ class SaltBaeHash(object):
 
     # Menu
     def menu(self):
+        # https://stackoverflow.com/a/2084628
         os.system('cls' if os.name == 'nt' else 'clear')
         #print("\033[H\033[2J") # another way to clear the terminal
         print('-----------------Salt Bae Hash-----------------')
         print('Plain Text -> Cipher(s) -> Hash(s)')
-        if self.args.generate != None or self.args.reproduce != None or self.args.encrypt != None or self.args.decrypt != None:
+        if len(sys.argv) <= 1:
+            choice = int(input('\n1) Generate\n2) Reproduce\n3) Learn about AES\n\n'))
+            if choice == 1:
+                self.generate(None)
+            elif choice == 2:
+                self.reproduce(None)
+            elif choice == 3:
+                self.learn_about_aes()
+            else:
+                print('No no no ...')
+                time.sleep(3)
+                self.menu()
+        else:
             if self.args.generate:
                 self.generate(self.args.generate)
             elif self.args.reproduce:
@@ -133,33 +139,21 @@ class SaltBaeHash(object):
                 self.encryption(self.args)
             elif self.args.decrypt:
                 self.encryption(self.args)
-        else:
-            choice = int(input('\n1) Generate\n2) Reproduce\n3) Encryption\n\n'))
-            if choice == 1:
-                self.generate(None)
-            elif choice == 2:
-                self.reproduce(None)
-            elif choice == 3:
-                self.learn_about_aes()
-                self.encryption(None)
-            else:
-                print('No no no ...')
-                time.sleep(3)
-                self.menu()
 
     # Util for Encryption choice -> provides download of AES publications
     def learn_about_aes(self):
-        choice = input('\nLearn more about AES encryption? [Y/n]: ')
-        if choice.lower() == 'y':
-            os.system('wget https://csrc.nist.gov/csrc/media/publications/fips/197/final/documents/fips-197.pdf')
-        return
+        os.system('wget https://csrc.nist.gov/csrc/media/publications/fips/197/final/documents/fips-197.pdf')
+        self.doAgain()
 
     # Repeat program
     def doAgain(self):
+        self.args = None
         choice = input('\nSBH another one? [Y/n]: ')
         if choice.lower() == 'y':
             self.menu()
         elif choice.lower() == 'n':
             sys.exit(0)
         else:
+            print('No no no ...')
+            time.sleep(3)
             self.doAgain()

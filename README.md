@@ -35,18 +35,11 @@
 * ```SBH: 9db0348486f86559c3e9c5b9456e46d7bc05ce2727b75903b411050086a5464b```
 
 ## W/ CLI (reproduce)
-* ```python run.py -r steam_rotations.txt steam``` (windows) || ```python3 run.py -r steam_rotations.txt steam``` (linux)
+* ```python run.py -r steam_rots.enc steam``` (windows) || ```python3 run.py -r steam_rots.enc steam``` (linux)
 
 ## W/o CLI (reproduce)
-* ```Rotation File: steam_rotations.txt```
+* ```Rotation File: steam_rots.enc```
 * ```Plain Text: steam```
-
-## W/ CLI (Encrypt)
-* ```python run.py -e steam_rotations.txt steam_rotations.enc``` (windows) || ```python3 run.py -e steam_rotations.txt steam_rotations.enc``` (linux)
-
-## W/o CLI (Encrypt)
-* ```In File: steam_rotations.text```
-* ```Out File: 
 
 # Installation
 
