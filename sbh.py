@@ -135,10 +135,6 @@ class SaltBaeHash(object):
                 self.generate(self.args.generate)
             elif self.args.reproduce:
                 self.reproduce(self.args.reproduce)
-            elif self.args.encrypt:
-                self.encryption(self.args)
-            elif self.args.decrypt:
-                self.encryption(self.args)
 
     # Util for Encryption choice -> provides download of AES publications
     def learn_about_aes(self):
