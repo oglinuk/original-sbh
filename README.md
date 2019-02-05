@@ -7,9 +7,9 @@
 # How to use
 
 1. ```python run.py``` (windows) || ```python3 run.py``` (linux)
-2. Input a number of [caesar ciphers](https://en.wikipedia.org/wiki/Caesar_cipher) that you want to apply
-3. Input a plain text - it is important to note that capitalization produces a different hash
-4. For n of caesar ciphers input a rotation (this must be remembered)
+2. Input a plain text - it is important to note that capitalization produces a different hash
+3. Input a number of [caesar ciphers](https://en.wikipedia.org/wiki/Caesar_cipher) that you want to apply
+4. For n amount of ciphers ciphers input a rotation (this must be remembered)
 
 # Example
 ```
