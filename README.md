@@ -4,42 +4,31 @@
 
 ### Learn more about [ciphers](https://en.wikipedia.org/wiki/Cipher) || [hash functions](https://en.wikipedia.org/wiki/Hash_function)
 
-### Next level of password security
-#### Plain text ->
-#### n(0 < n < infinity) cipher(s) applied ->
-#### n(0 < n < infinity) generated rotation(s) ->
-#### n(0 < n < infinity) amount of potential hashs ->
-#### -> use encryption to encrypt the SBH rot file(s) w/ AES 256
-
 # How to use
 
-## W/ CLI
-
-1. ```python run.py [nCiphers] [plainText]``` (windows) || ```python3 run.py [nCiphers] [plainText]``` (linux)
-
-## W/o CLI
 1. ```python run.py``` (windows) || ```python3 run.py``` (linux)
 2. Input a number of [caesar ciphers](https://en.wikipedia.org/wiki/Caesar_cipher) that you want to apply
 3. Input a plain text - it is important to note that capitalization produces a different hash
+4. For n of caesar ciphers input a rotation (this must be remembered)
 
 # Example
+```
+-----------------Salt Bae Hash-----------------
+Plain Text -> Cipher(s) -> Hash(s)
+Plain Text: test
+Num of ciphers: 8 
+Rotation: 0
+Rotation: 1 
+Rotation: 0 
+Rotation: 1
+Rotation: 1
+Rotation: 9
+Rotation: 7
+Rotation: 0
+Salt Bae Encrypted String: ee4e6bad0e3d52683b53038e7d683cd9447f6f21eac26c11b692bf1fcdda8cf7
 
-## W/ CLI (generate)
-* ```python run.py -g 5 steam``` (windows) || ```python3 -g run.py 5 steam``` (linux)
-* ```Context: steam```
-
-## W/o CLI (generate)
-* ```Number of Ciphers: 5```
-* ```Plain Text: steam```
-* ```Context: steam```
-* ```SBH: 9db0348486f86559c3e9c5b9456e46d7bc05ce2727b75903b411050086a5464b```
-
-## W/ CLI (reproduce)
-* ```python run.py -r steam_rots.enc steam``` (windows) || ```python3 run.py -r steam_rots.enc steam``` (linux)
-
-## W/o CLI (reproduce)
-* ```Rotation File: steam_rots.enc```
-* ```Plain Text: steam```
+Press enter to sbh another plain text input ...
+```
 
 # Installation
 
@@ -52,9 +41,11 @@ Install [Git](https://github.com/git-for-windows/git/releases/download/v2.15.0.w
 # Benefits
 * Free
 * Easy to use
-* <b><i>Very</i></b> secure
+* <b><i>Very</i></b> secure ~ (when I change it)
 
 # Milestones
 * Add more cipher methods as options
 * Add the option to generate sha512 hashs rather than sha256
 * Make into executable
+* Dockerize
+* convert to the aes file encryption with rng values for rots 
