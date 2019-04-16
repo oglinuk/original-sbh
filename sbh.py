@@ -27,10 +27,8 @@ def main():
         iters = int(input('Number of Ciphers: '))
         random.seed(int(input('Seed: ')))
         rot = random.randint(1, sys.maxsize)
-        print(rot)
         text = rotFunc(rot, plainText)
         for _ in range(1, iters):
-            random.seed(rot)
             rot = random.randint(1, sys.maxsize)
             text = rotFunc(rot, text)
         print('Salt Bae Encrypted String: {}'.format(text))

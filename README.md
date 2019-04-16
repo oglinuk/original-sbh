@@ -9,23 +9,16 @@
 1. ```python run.py``` (windows) || ```python3 run.py``` (linux)
 2. Input a plain text - it is important to note that capitalization produces a different hash
 3. Input a number of [caesar ciphers](https://en.wikipedia.org/wiki/Caesar_cipher) that you want to apply
-4. For n amount of ciphers ciphers input a rotation (this must be remembered)
+4. Input a seed
 
 # Example
 ```
 -----------------Salt Bae Hash-----------------
 Plain Text -> Cipher(s) -> Hash(s)
 Plain Text: test
-Num of ciphers: 8 
-Rotation: 0
-Rotation: 1 
-Rotation: 0 
-Rotation: 1
-Rotation: 1
-Rotation: 9
-Rotation: 7
-Rotation: 0
-Salt Bae Encrypted String: ee4e6bad0e3d52683b53038e7d683cd9447f6f21eac26c11b692bf1fcdda8cf7
+Num of ciphers: 1729
+Seed: 42
+Salt Bae Encrypted String: 3555c82d3104b27623438398a1044099315ff62ea2c389de35e4d542be1930d1
 
 Press enter to sbh another plain text input ...
 ```
@@ -41,11 +34,10 @@ Install [Git](https://github.com/git-for-windows/git/releases/download/v2.15.0.w
 # Benefits
 * Free
 * Easy to use
-* <b><i>Very</i></b> secure ~ (when I change it)
+* <b><i>Very</i></b> secure
 
 # Milestones
 * Add more cipher methods as options
 * Add the option to generate sha512 hashs rather than sha256
 * Make into executable
 * Dockerize
-* convert to the aes file encryption with rng values for rots 
